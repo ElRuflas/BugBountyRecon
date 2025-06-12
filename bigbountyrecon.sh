@@ -41,7 +41,7 @@ print_banner() {
 }
 
 # --- Prompt for Target ---
-read -rp "$(echo -e "${BOLD}Enter target domain (e.g. example.com):${RESET} ")" TARGET
+read -rp "$(echo -e "${BOLD}Enter target domain (e.g. ${TARGET}):${RESET} ")" TARGET
 echo
 
 # --- Descriptive option names ---
@@ -115,32 +115,32 @@ recon_directory_listing() {
 # 2. Configuration Files
 recon_config_files() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} (filetype:conf OR filetype:config)"
+  echo "  site:${TARGET} ext:xml | ext:conf | ext:cnf | ext:reg | ext:inf | ext:rdp | ext:cfg | ext:txt | ext:ora | ext:ini"
 }
 # 3. Database Files
 recon_database_files() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} (filetype:sql OR filetype:db)"
+  echo "  site:${TARGET} ext:sql | ext:dbf | ext:mdb"
 }
 # 4. WordPress Plugins
 recon_wp_plugins() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} inurl:wp-content/plugins"
+  echo "  site:${TARGET}  inurl:wp- | inurl:wp-content | inurl:plugins | inurl:uploads | inurl:themes | inurl:download"
 }
 # 5. Log Files
 recon_log_files() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} filetype:log"
+  echo "  site:${TARGET} ext:log | filetype:log"
 }
 # 6. Backup & Old Files
 recon_backup_files() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} (filetype:bak OR filetype:old)"
+  echo "  site:${TARGET} ext:bkf | ext:bkp | ext:bak | ext:old | ext:backup"
 }
 # 7. Login Pages
 recon_login_pages() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} inurl:login"
+  echo "  site:${TARGET}  inurl:login | inurl:signin | intitle:Login | intitle: signin | inurl:auth"
 }
 # 8. SQL Error Messages
 recon_sql_errors() {
@@ -150,24 +150,24 @@ recon_sql_errors() {
 # 9. Apache Config Files
 recon_apache_conf() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} filetype:conf \"Apache\""
+  echo "  site:${TARGET} filetype:config apache"
 }
 # 10. Robots.txt Files
 recon_robots() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} filetype:txt inurl:robots"
+  echo "  :${TARGET}/robots.txt"
 }
 # 11. DomainEye API Search
 recon_domaineye() {
   echo -e "${GREEN}DomainEye API:${RESET}"
   echo "  Requires \$DOMAINEYE_API_KEY"
-  echo "  curl \"https://api.domaineye.io/v1/search?apikey=\$DOMAINEYE_API_KEY&domain=${TARGET}\""
+  echo "In progress"
 }
 
 # 12. Public Documents
 recon_public_documents() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} (filetype:doc OR filetype:pdf OR filetype:xls)"
+  echo "  site:${TARGET} ext:doc | ext:docx | ext:odt | ext:pdf | ext:rtf | ext:sxw | ext:psw | ext:ppt | ext:pptx | ext:pps | ext:csv"
 }
 
 # 13. phpinfo() Pages
@@ -179,43 +179,43 @@ recon_phpinfo() {
 # 14. Backdoor Detection
 recon_backdoor() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} (inurl:backdoor OR inurl:cmd.php)"
+  echo "  site:${TARGET} inurl:shell | inurl:backdoor | inurl:wso | inurl:cmd | shadow | passwd | boot.ini | inurl:backdoor"
 }
 
 # 15. Install/Setup Files
 recon_install_setup() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} (inurl:install OR inurl:setup)"
+  echo "  site:${TARGET} inurl:readme | inurl:license | inurl:install | inurl:setup | inurl:config"
 }
 
 # 16. Open Redirects
 recon_open_redirects() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} (inurl:\"redirect=\" OR inurl:url=)"
+  echo "  site:${TARGET} inurl:redir | inurl:url | inurl:redirect | inurl:return | inurl:src=http | inurl:r=http"
 }
 
 # 17. Apache Struts RCE
 recon_struts_rce() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} (filetype:action OR filetype:do)"
+  echo "  site:${TARGET} ext:action | ext:struts | ext:do"
 }
 
 # 18. Third-Party Exposure
 recon_third_party() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:codepen.io \"${TARGET}\""
+  echo "site:http://ideone.com | site:http://codebeautify.org | site:http://codeshare.io | site:http://codepen.io | site:http://repl.it | site:http://justpaste.it | site:http://pastebin.com | site:http://jsfiddle.net | site:http://trello.com | site:*.atlassian.net | site:bitbucket.org \"${TARGET}\""
 }
 
 # 19. Security Headers Check
 recon_sec_headers() {
   echo -e "${GREEN}Headers Check:${RESET}"
-  echo "  curl -I https://${TARGET}"
+  echo "curl https://securityheaders.com/?q=\"${TARGET}\"&followRedirects=on"
 }
 
 # 20. GitLab References
 recon_gitlab() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:gitlab.com intext:\"${TARGET}\""
+  echo "  inurl:gitlab \"${TARGET}\""
 }
 
 # 21. Pastebin Entries
@@ -227,19 +227,19 @@ recon_pastebin() {
 # 22. LinkedIn Employees
 recon_linkedin() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:linkedin.com/in \"${TARGET}\""
+  echo "  site:linkedin.com employees \"${TARGET}\""
 }
 
 # 23. .htaccess Files
 recon_htaccess() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} filetype:htaccess"
+  echo "  site:${TARGET}  inurl:/phpinfo.php | inurl:.htaccess"
 }
 
 # 24. Subdomain Enumeration
 recon_subdomains() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:*.${TARGET} -www"
+  echo "  site:*.${TARGET}"
 }
 
 # 25. Sub-Subdomain Enumeration
@@ -250,20 +250,22 @@ recon_subsubdomains() {
 
 # 26. WordPress Exposure
 recon_wp_exposure() {
-  recon_wp_plugins
+  echo -e "${GREEN}Google Dork:${RESET}"
+  echo "  site:${TARGET}  inurl:wp-content | inurl:wp-includes"
 }
 
 # 27. Bitbucket References
 recon_bitbucket() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:bitbucket.org \"${TARGET}\""
+  echo "site:atlassian.net | site:bitbucket.org \"${TARGET}\""
 }
 
 # 28. PassiveTotal API
 recon_passivetotal() {
   echo -e "${GREEN}PassiveTotal API:${RESET}"
   echo "  Requires \$PASSIVETOTAL_API_KEY"
-  echo "  curl \"https://api.passivetotal.org/v2/dns/passive?apikey=\$PASSIVETOTAL_API_KEY&query=${TARGET}\""
+  echo "InProgress"
+
 }
 
 # 29. StackOverflow References
@@ -275,37 +277,39 @@ recon_stackoverflow() {
 # 30. Wayback WP Exposure
 recon_wayback_wp() {
   echo -e "${GREEN}Wayback API:${RESET}"
-  echo "  curl \"https://api.wayback.archive.org/v2/cdx?url=${TARGET}&output=json\""
+  echo " curl http://wwwb-dedup.us.archive.org:8083/cdx/search?url=${TARGET}/&matchType=domain&collapse=digest&output=text&fl=original,timestamp&filter=urlkey:.*wp[-].*&limit=1000000&xx="
 }
 
 # 31. GitHub References
 recon_github() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:github.com \"${TARGET}\""
+  echo "https://github.com/search?q=${TARGET}&type=repositories" 
+
 }
 
 # 32. OpenBugBounty Listings
 recon_openbugbounty() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:openbugbounty.org \"${TARGET}\""
+
+  echo "https://www.openbugbounty.org/search/?search=${TARGET}"
 }
 
 # 33. Reddit Mentions
 recon_reddit() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:reddit.com \"${TARGET}\""
+  echo "https://www.reddit.com/search/?q=${TARGET}"
 }
 
 # 34. crossdomain.xml Files
 recon_crossdomain() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} filetype:xml inurl:crossdomain.xml"
+  echo "https://www.google.com/search?q=${TARGET}/crossdomain.xml"
 }
 
 # 35. ThreatCrowd API
 recon_threatcrowd() {
   echo -e "${GREEN}ThreatCrowd API:${RESET}"
-  echo "  curl \"https://www.threatcrowd.org/searchApi/v2/domain/report/?domain=${TARGET}\""
+  echo "https://threatcrowd.org/domain.php?domain=${TARGET}"
 }
 
 # 36. .git Folder Exposure
@@ -317,80 +321,75 @@ recon_git_folder() {
 # 37. YouTube Mentions
 recon_youtube() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:youtube.com \"${TARGET}\""
+  echo "https://www.youtube.com/results?search_query=${TARGET}"
 }
 
 # 38. DigitalOcean Spaces
 recon_do_spaces() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:digitaloceanspaces.com \"${TARGET}\""
+  echo "https://www.google.com/search?q=site:digitaloceanspaces.com%20${TARGET}"
 }
 
 # 39. SWF Files (Google)
 recon_swf_google() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} filetype:swf"
+  echo "inurl:${TARGET} ext:swf"
 }
 
 # 40. SWF Files (Yandex)
 recon_swf_yandex() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  inurl:${TARGET} filetype:swf (on yandex.ru)"
+  echo "https://yandex.com/search/?text=site:${TARGET} mime:swf"
 }
 
 # 41. SWF Files (Wayback)
 recon_swf_wayback() {
-  recon_swf_google
+  echo "https://web.archive.org/cdx/search?url=${TARGET}/&matchType=domain&collapse=urlkey&output=text&fl=original&filter=urlkey:.*swf&limit=100000" 
 }
 
 # 42. Wayback Archive API
 recon_wayback_api() {
-  recon_wayback_wp
+  echo "https://web.archive.org/cdx/search?url=${TARGET}/&matchType=domain&collapse=urlkey&output=text&fl=original&filter=mimetype:application/x-shockwave-flash&limit=100000"
 }
 
 # 43. Reverse IP Lookup
 recon_reverse_ip() {
   echo -e "${GREEN}Reverse IP Lookup:${RESET}"
-  echo "  curl \"https://api.hackertarget.com/reverseiplookup/?q=${TARGET}\""
+  echo "https://viewdns.info/reverseip/?host=${TARGET}&t=1"
 }
 
 # 44. Traefik Dashboard
 recon_traefik() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} intitle:Traefik"
+  echo " intitle:traefik inurl:8080/dashboard ${TARGET}"
 }
 
 # 45. AWS S3 Buckets
 recon_aws_s3() {
-  echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:amazonaws.com \"${TARGET}\""
+  echo "https://www.google.com/search?q=site:.s3.amazonaws.com%20${TARGET}"
 }
 
 # 46. GCP/Azure Buckets
 recon_gcp_azure() {
-  echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:storage.googleapis.com \"${TARGET}\" OR site:blob.core.windows.net \"${TARGET}\""
+  echo "https://cse.google.com/cse?cx=002972716746423218710:veac6ui3rio#gsc.tab=0&gsc.q=${TARGET}"
 }
 
 # 47. PublicWWW API
 recon_publicwww() {
   echo -e "${GREEN}PublicWWW API:${RESET}"
-  echo "  Requires \$PUBLICWWW_API_KEY"
-  echo "  curl \"https://publicwww.com/websites/${TARGET}/?apikey=\$PUBLICWWW_API_KEY\""
+  echo " https://publicwww.com/websites/%22${TARGET}%22/"
 }
 
 # 48. Censys API
 recon_censys() {
-  echo -e "${GREEN}Censys API:${RESET}"
-  echo "  Requires \$CENSYS_API_ID & \$CENSYS_API_SECRET"
-  echo "  curl \"https://search.censys.io/api/v2/hosts/search?q=parsed.names:${TARGET}\" -u \"\$CENSYS_API_ID:\$CENSYS_API_SECRET\""
+  echo -e "${GREEN}Censys:${RESET}"
+  echo " https://censys.io/ipv4?q=${TARGET}" 
 }
 
 # 49. Shodan API
 recon_shodan() {
-  echo -e "${GREEN}Shodan API:${RESET}"
-  echo "  Requires \$SHODAN_API_KEY"
-  echo "  shodan search --fields ip_str,port \"hostname:${TARGET}\" --key \$SHODAN_API_KEY"
+  echo -e "${GREEN}Shodan:${RESET}"
+  echo " https://www.shodan.io/search?query=${TARGET}"
 }
 
 # 50. SharePoint _vti_bin
@@ -402,31 +401,31 @@ recon_sharepoint_vti() {
 # 51. WSDL Endpoints
 recon_wsdl() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:${TARGET} filetype:wsdl"
+  echo " site:${TARGET} filetype:wsdl | filetype:WSDL | ext:svc | inurl:wsdl | Filetype: ?wsdl | inurl:asmx?wsdl | inurl:jws?wsdl | intitle:_vti_bin/sites.asmx?wsdl | inurl:_vti_bin/sites.asmx?wsdl"
 }
 
 # 52. Gist References
 recon_gist() {
   echo -e "${GREEN}Google Dork:${RESET}"
-  echo "  site:gist.github.com \"${TARGET}\""
+  echo "https://gist.github.com/search?q=*.${TARGET}"
 }
 
 # 53. Certificate Transparency
 recon_ct_logs() {
   echo -e "${GREEN}CT Log Lookup:${RESET}"
-  echo "  curl \"https://crt.sh/?q=${TARGET}\""
+  echo " curl \"https://crt.sh/?q=${TARGET}\""
 }
 
 # 54. HaveIBeenPwned Leak
 recon_hibp() {
-  echo -e "${GREEN}HIBP Lookup:${RESET}"
-  echo "  curl \"https://haveibeenpwned.com/api/v3/breachedaccount/${TARGET}\" -H \"hibp-api-key:YOUR_API_KEY\""
+  echo -e "${GREEN}Password leak:${RESET}"
+  echo "site:throwbin.io ${TARGET}" 
 }
 
 # 55. WhatCMS Detection
 recon_whatcms() {
   echo -e "${GREEN}WhatCMS Lookup:${RESET}"
-  echo "  curl \"https://whatcms.org/APIEndpoint?key=YOUR_KEY&url=${TARGET}\""
+  echo " https://whatcms.org/?s=${TARGET}"
 }
 
 # 56. Run All Google Dorks
