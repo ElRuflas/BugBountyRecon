@@ -2,8 +2,8 @@
 # ============================================
 # BigBountyRecon Lite - Simple Bug Bounty Recon
 # ============================================
-# Author: Your Name
-# Date:   $(date +%Y-%m-%d)
+# Author: David Carpintero Diaz 
+# Date:   12-6-2025
 #
 # Usage: chmod +x bigbountyrecon.sh && ./bigbountyrecon.sh
 #
