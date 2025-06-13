@@ -13,7 +13,6 @@
 #   - Each option opens the corresponding Google dork or site in the browser.
 # ============================================
 
-# --- Colors & Formatting (ANSI codes) ---
 RED="\033[31m"
 GREEN="\033[32m"
 YELLOW="\033[33m"
@@ -23,7 +22,6 @@ CYAN="\033[36m"
 BOLD="\033[1m"
 RESET="\033[0m"
 
-# --- Banner ---
 print_banner() {
   clear
   echo -e "${CYAN}${BOLD}"
@@ -38,11 +36,9 @@ print_banner() {
   echo
 }
 
-# --- Prompt for Target ---
 read -rp "$(echo -e "${BOLD}Enter target domain (e.g. ${TARGET}):${RESET}") " TARGET
 echo
 
-# --- Descriptive option names ---
 OPTIONS=(
   "Directory Listing"
   "Configuration Files"
@@ -105,7 +101,6 @@ OPTIONS=(
 )
 
 
-# --- Browser launcher (uses default) ---
 open_url() {
   if command -v xdg-open &>/dev/null; then
     xdg-open "$1"
@@ -472,7 +467,6 @@ recon_custom_toolchain() {
   echo -e "${GREEN}Custom Integration:${RESET}"
   echo "  Integrate with subfinder, amass, httpx, etc., as needed."
 }
-# Collect function names in order:
 FUNCS=(
   recon_directory_listing
   recon_config_files
@@ -551,7 +545,6 @@ print_menu() {
   echo "  q) Quit"
 }
 
-# --- Main Loop ---
 while true; do
   print_banner
   print_menu
